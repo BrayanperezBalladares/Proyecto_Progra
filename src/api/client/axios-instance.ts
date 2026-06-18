@@ -1,6 +1,7 @@
 import axios, { type AxiosError } from 'axios'
 import type { ApiError } from './api-error'
 import { getApiBaseUrl } from '@api/config'
+import { supabase } from '@/lib/supabase'
 
 export const apiClient = axios.create({
   baseURL: getApiBaseUrl(),
@@ -10,10 +11,10 @@ export const apiClient = axios.create({
   timeout: 15_000,
 })
 
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('auth_token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+apiClient.interceptors.request.use(async (config) => {
+  const { data } = await supabase.auth.getSession()
+  if (data.session?.access_token) {
+    config.headers.Authorization = `Bearer ${data.session.access_token}`
   }
   return config
 })
