@@ -3,10 +3,11 @@ import { isMockApi } from '@api/config'
 
 type ApiModeBannerProps = {
   connected?: boolean
+  loading?: boolean
   errorMessage?: string
 }
 
-export function ApiModeBanner({ connected, errorMessage }: ApiModeBannerProps) {
+export function ApiModeBanner({ connected, loading, errorMessage }: ApiModeBannerProps) {
   const mock = isMockApi()
 
   if (mock) {
@@ -21,6 +22,8 @@ export function ApiModeBanner({ connected, errorMessage }: ApiModeBannerProps) {
       </div>
     )
   }
+
+  if (loading || connected) return null
 
   if (errorMessage) {
     return (
@@ -41,13 +44,5 @@ export function ApiModeBanner({ connected, errorMessage }: ApiModeBannerProps) {
     )
   }
 
-  return (
-    <div className="flex items-center gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
-      <Wifi className="size-4 shrink-0" aria-hidden />
-      <p>
-        Conectado a <strong>ProyectoIProgra2</strong>
-        {connected === false ? ' (comprobando…)' : ' — datos en vivo'}
-      </p>
-    </div>
-  )
+  return null
 }
