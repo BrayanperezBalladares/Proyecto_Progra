@@ -11,11 +11,13 @@ import {
   ChefHat,
   Menu,
   X,
+  LogOut,
 } from 'lucide-react'
 import { AppLink } from '../app-link/app-link'
 import type { NavBarProps, NavItem } from './nav-bar.types'
+import { useAuth } from '@api/shared/hooks/use-auth'
 
-const defaultItems: NavItem[] = [
+const staffItems: NavItem[] = [
   { label: 'Dashboard',     to: '/dashboard',    icon: LayoutDashboard },
   { label: 'Plano salón',   to: '/plano-salon',  icon: Map },
   { label: 'Reservas',      to: '/reservas',     icon: CalendarCheck },
@@ -26,7 +28,14 @@ const defaultItems: NavItem[] = [
   { label: 'Bloqueos',      to: '/bloqueos',     icon: Ban },
 ]
 
-export function NavBar({ items = defaultItems }: NavBarProps) {
+const clienteItems: NavItem[] = [
+  { label: 'Mis reservas', to: '/mis-reservas', icon: CalendarCheck },
+]
+
+export function NavBar({ items }: NavBarProps) {
+  const { user, role, signOut } = useAuth()
+  const activeItems = items ?? (role === 'cliente' ? clienteItems : staffItems)
+
   const [isOpen, setIsOpen] = useState(false)
   const drawerRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -99,7 +108,7 @@ export function NavBar({ items = defaultItems }: NavBarProps) {
 
           {/* Desktop nav */}
           <ul className="hidden items-center gap-0.5 lg:flex" role="list">
-            {items.map((item) => {
+            {activeItems.map((item) => {
               const Icon = item.icon
               return (
                 <li key={item.to}>
@@ -121,6 +130,30 @@ export function NavBar({ items = defaultItems }: NavBarProps) {
               )
             })}
           </ul>
+
+          {/* User area */}
+          {user && (
+            <div className="flex items-center gap-2">
+              <span className="hidden text-xs text-muted sm:inline">{user.name}</span>
+              <button
+                type="button"
+                aria-label="Cerrar sesión"
+                onClick={() => signOut()}
+                className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary text-xs font-bold text-white hover:bg-primary-dark"
+                title={`${user.name} — Cerrar sesión`}
+              >
+                {user.name.charAt(0).toUpperCase()}
+              </button>
+              <button
+                type="button"
+                aria-label="Cerrar sesión"
+                onClick={() => signOut()}
+                className="hidden size-8 cursor-pointer items-center justify-center rounded-md text-muted hover:bg-background-subtle hover:text-primary-dark lg:flex"
+              >
+                <LogOut className="size-4" aria-hidden />
+              </button>
+            </div>
+          )}
 
           {/* Mobile hamburger */}
           <button
@@ -179,7 +212,7 @@ export function NavBar({ items = defaultItems }: NavBarProps) {
         {/* Drawer nav items */}
         <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Menú móvil">
           <ul className="space-y-1" role="list">
-            {items.map((item) => {
+            {activeItems.map((item) => {
               const Icon = item.icon
               return (
                 <li key={item.to} onClick={close}>
@@ -202,6 +235,29 @@ export function NavBar({ items = defaultItems }: NavBarProps) {
             })}
           </ul>
         </nav>
+
+        {/* Drawer user area */}
+        {user && (
+          <div className="border-t border-border px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-sm font-medium text-primary-dark">{user.name}</span>
+              </div>
+              <button
+                type="button"
+                aria-label="Cerrar sesión"
+                onClick={() => { signOut(); close() }}
+                className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-muted hover:bg-background-subtle hover:text-primary-dark"
+              >
+                <LogOut className="size-3.5" aria-hidden />
+                Salir
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )

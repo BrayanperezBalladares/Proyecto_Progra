@@ -9,6 +9,7 @@ export type AppRoute =
   | '/zonas'
   | '/lista-espera'
   | '/bloqueos'
+  | '/mis-reservas'
 
 export type NavItem = {
   label: string
