@@ -6,6 +6,7 @@ import {
   createReservaHttp,
   deleteReservaHttp,
   getReservasHttp,
+  getMisReservasHttp,
   updateReservaHttp,
 } from '@api/http/reservas.http'
 import type { ReservaFormPayload } from '@api/types/domain.types'
@@ -44,4 +45,11 @@ export async function deleteReserva(id: number) {
   if (!isMockApi()) return deleteReservaHttp(id)
   await mockDelay()
   mockStore.deleteReserva(id)
+}
+
+export async function getMisReservas() {
+  if (!isMockApi()) return getMisReservasHttp()
+  await mockDelay()
+  // ponytail: mock returns all reservas filtered by clienteId=1 for local dev
+  return mockStore.getReservas().slice(0, 3)
 }

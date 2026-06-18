@@ -37,3 +37,8 @@ export async function cambiarEstadoReservaHttp(id: number, estadoId: number): Pr
 export async function deleteReservaHttp(id: number): Promise<void> {
   await apiClient.delete(`/Reserva/${id}`)
 }
+
+export async function getMisReservasHttp(): Promise<Reserva[]> {
+  const { data } = await apiClient.get<Reserva[]>('/Reserva/mis-reservas')
+  return data
+}
