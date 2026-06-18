@@ -50,6 +50,6 @@ export async function deleteReserva(id: number) {
 export async function getMisReservas() {
   if (!isMockApi()) return getMisReservasHttp()
   await mockDelay()
-  // ponytail: mock returns all reservas filtered by clienteId=1 for local dev
+  // ponytail: returns first 3 mock reservas for local dev
   return mockStore.getReservas().slice(0, 3)
 }

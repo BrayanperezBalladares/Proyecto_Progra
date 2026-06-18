@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
 import { ChefHat } from 'lucide-react'
 import { useAuth } from '@api/shared/hooks/use-auth'
 
 export function LoginPage() {
-  const { signIn, signInWithGoogle, role, user } = useAuth()
-  const navigate = useNavigate()
+  const { signIn, signInWithGoogle } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -22,14 +20,6 @@ export function LoginPage() {
       return
     }
     // navigation happens via route guard on auth state change
-  }
-
-  // Once auth state updates, router context re-evaluates and redirects automatically.
-  // But navigate manually as fallback after successful login.
-  if (user) {
-    const dest = role === 'cliente' ? '/mis-reservas' : '/dashboard'
-    navigate({ to: dest })
-    return null
   }
 
   return (

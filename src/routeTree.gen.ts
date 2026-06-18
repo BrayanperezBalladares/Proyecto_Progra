@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZonasRouteImport } from './routes/zonas'
 import { Route as ReservasRouteImport } from './routes/reservas'
 import { Route as PlanoSalonRouteImport } from './routes/plano-salon'
+import { Route as MisReservasRouteImport } from './routes/mis-reservas'
 import { Route as MesasRouteImport } from './routes/mesas'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ListaEsperaRouteImport } from './routes/lista-espera'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ClientesRouteImport } from './routes/clientes'
@@ -34,9 +36,19 @@ const PlanoSalonRoute = PlanoSalonRouteImport.update({
   path: '/plano-salon',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MisReservasRoute = MisReservasRouteImport.update({
+  id: '/mis-reservas',
+  path: '/mis-reservas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MesasRoute = MesasRouteImport.update({
   id: '/mesas',
   path: '/mesas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListaEsperaRoute = ListaEsperaRouteImport.update({
@@ -71,7 +83,9 @@ export interface FileRoutesByFullPath {
   '/clientes': typeof ClientesRoute
   '/dashboard': typeof DashboardRoute
   '/lista-espera': typeof ListaEsperaRoute
+  '/login': typeof LoginRoute
   '/mesas': typeof MesasRoute
+  '/mis-reservas': typeof MisReservasRoute
   '/plano-salon': typeof PlanoSalonRoute
   '/reservas': typeof ReservasRoute
   '/zonas': typeof ZonasRoute
@@ -82,7 +96,9 @@ export interface FileRoutesByTo {
   '/clientes': typeof ClientesRoute
   '/dashboard': typeof DashboardRoute
   '/lista-espera': typeof ListaEsperaRoute
+  '/login': typeof LoginRoute
   '/mesas': typeof MesasRoute
+  '/mis-reservas': typeof MisReservasRoute
   '/plano-salon': typeof PlanoSalonRoute
   '/reservas': typeof ReservasRoute
   '/zonas': typeof ZonasRoute
@@ -94,7 +110,9 @@ export interface FileRoutesById {
   '/clientes': typeof ClientesRoute
   '/dashboard': typeof DashboardRoute
   '/lista-espera': typeof ListaEsperaRoute
+  '/login': typeof LoginRoute
   '/mesas': typeof MesasRoute
+  '/mis-reservas': typeof MisReservasRoute
   '/plano-salon': typeof PlanoSalonRoute
   '/reservas': typeof ReservasRoute
   '/zonas': typeof ZonasRoute
@@ -107,7 +125,9 @@ export interface FileRouteTypes {
     | '/clientes'
     | '/dashboard'
     | '/lista-espera'
+    | '/login'
     | '/mesas'
+    | '/mis-reservas'
     | '/plano-salon'
     | '/reservas'
     | '/zonas'
@@ -118,7 +138,9 @@ export interface FileRouteTypes {
     | '/clientes'
     | '/dashboard'
     | '/lista-espera'
+    | '/login'
     | '/mesas'
+    | '/mis-reservas'
     | '/plano-salon'
     | '/reservas'
     | '/zonas'
@@ -129,7 +151,9 @@ export interface FileRouteTypes {
     | '/clientes'
     | '/dashboard'
     | '/lista-espera'
+    | '/login'
     | '/mesas'
+    | '/mis-reservas'
     | '/plano-salon'
     | '/reservas'
     | '/zonas'
@@ -141,7 +165,9 @@ export interface RootRouteChildren {
   ClientesRoute: typeof ClientesRoute
   DashboardRoute: typeof DashboardRoute
   ListaEsperaRoute: typeof ListaEsperaRoute
+  LoginRoute: typeof LoginRoute
   MesasRoute: typeof MesasRoute
+  MisReservasRoute: typeof MisReservasRoute
   PlanoSalonRoute: typeof PlanoSalonRoute
   ReservasRoute: typeof ReservasRoute
   ZonasRoute: typeof ZonasRoute
@@ -170,11 +196,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanoSalonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mis-reservas': {
+      id: '/mis-reservas'
+      path: '/mis-reservas'
+      fullPath: '/mis-reservas'
+      preLoaderRoute: typeof MisReservasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mesas': {
       id: '/mesas'
       path: '/mesas'
       fullPath: '/mesas'
       preLoaderRoute: typeof MesasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lista-espera': {
@@ -221,7 +261,9 @@ const rootRouteChildren: RootRouteChildren = {
   ClientesRoute: ClientesRoute,
   DashboardRoute: DashboardRoute,
   ListaEsperaRoute: ListaEsperaRoute,
+  LoginRoute: LoginRoute,
   MesasRoute: MesasRoute,
+  MisReservasRoute: MisReservasRoute,
   PlanoSalonRoute: PlanoSalonRoute,
   ReservasRoute: ReservasRoute,
   ZonasRoute: ZonasRoute,
