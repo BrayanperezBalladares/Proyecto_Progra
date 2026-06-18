@@ -1,4 +1,4 @@
-import { FlaskConical, Wifi, WifiOff } from 'lucide-react'
+import { FlaskConical, WifiOff } from 'lucide-react'
 import { isMockApi } from '@api/config'
 
 type ApiModeBannerProps = {
