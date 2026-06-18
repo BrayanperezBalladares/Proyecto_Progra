@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\Proyecto_Progra\\\\src\\\\ui\\\\shared\\\\components\\\\empty-state\")",
+      "Bash(Out-Null)",
+      "Bash(Write-Output \"OK\")"
+    ]
+  }
+}

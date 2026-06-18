@@ -1,0 +1,26 @@
+---
+description: UI/UX work must follow the UI UX Pro Max skill and project design system
+globs:
+  - src/ui/**
+  - src/index.css
+  - design-system/**
+---
+
+# Restaurant UI (UI UX Pro Max)
+
+When editing UI, styling, or layout:
+
+1. Read `design-system/restaurante-progra/MASTER.md` (and page overrides in `design-system/restaurante-progra/pages/` if present).
+2. Follow `.cursor/skills/ui-ux-pro-max/SKILL.md` workflow for new screens.
+3. Regenerate design hints when the product changes:
+   ```bash
+   python .cursor/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Restaurante Progra" --stack react
+   ```
+
+## Stack rules
+
+- React 19 + Tailwind v4 + Lucide icons (no emoji icons).
+- Use shell primitives: `AppButton`, `AppIconButton`, `AppLink`, `panelClass`, `inputClass`, `selectClass`, `app-table`.
+- Primary CTA = gold (`--color-cta`), headings = Playfair Display SC, body = Karla.
+- All clickables: `cursor-pointer`, transitions 150–300ms, visible focus rings.
+- Keep `api/` free of presentation logic.
